@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model dynamic
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>Blogs</h2>
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Tags</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blog in Model)
+                {
+                    <tr>
+                        <td>@blog.Title</td>
+                        <td>@blog.User?.UserName ?? "Unknown"</td>
+                        <td>
+                            @if (blog.BlogTags != null)
+                            {
+                                @foreach (var blogTag in blog.BlogTags)
+                                {
+                                    <span class="badge bg-primary">@blogTag?.Tag?.Name ?? "No Tag"</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>No Tags</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@blog.Id" class="btn btn-info">Details</a>
+                            <a asp-action="Edit" asp-route-id="@blog.Id" class="btn btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@blog.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No blogs available at the moment. Please check back later.</p>
+    }
+
+
+</div>

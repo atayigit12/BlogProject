@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Favorites";
+}
+
+@model IEnumerable<BlogProject.DAL.Blog>
+
+<div class="text-center">
+    <h1>My Favorite Blogs</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var blog in Model)
+            {
+                <tr>
+                    <td>@blog.Title</td>
+                    <td>
+                        <a asp-action="RemoveFromFavorites" asp-route-id="@blog.Id" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
